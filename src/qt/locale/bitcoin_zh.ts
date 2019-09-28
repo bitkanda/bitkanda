@@ -43,11 +43,11 @@
     </message>
     <message>
         <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>这些是你的比特币支付地址。在发送之前，一定要核对金额和接收地址。</translation>
+        <translation>这些是你的比坎达支付地址。在发送之前，一定要核对金额和接收地址。</translation>
     </message>
     <message>
         <source>These are your Bitcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>这些是您的比特币接收地址。建议每个交易使用一个新的接收地址。</translation>
+        <translation>这些是您的比坎达接收地址。建议每个交易使用一个新的接收地址。</translation>
     </message>
     <message>
         <source>Export Address List</source>
@@ -141,7 +141,7 @@
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
-        <translation>注意：如果你加密了钱包，丢失了密码，您将&lt;b&gt;丢失所有的比特币。</translation>
+        <translation>注意：如果你加密了钱包，丢失了密码，您将&lt;b&gt;丢失所有的比坎达。</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -153,7 +153,7 @@
     </message>
     <message>
         <source>Your wallet is now encrypted. Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
-        <translation>您的钱包现在加密了。记住，加密您的钱包并不能完全保护您的比特币不被恶意软件窃取。</translation>
+        <translation>您的钱包现在加密了。记住，加密您的钱包并不能完全保护您的比坎达不被恶意软件窃取。</translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -259,7 +259,7 @@
     </message>
     <message>
         <source>Send coins to a Bitcoin address</source>
-        <translation>发送比特币到一个比特币地址</translation>
+        <translation>发送比坎达到一个比坎达地址</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -283,7 +283,7 @@
     </message>
     <message>
         <source>Bitcoin</source>
-        <translation>比特币</translation>
+        <translation>比坎达</translation>
     </message>
     <message>
         <source>&amp;Send</source>
@@ -307,11 +307,11 @@
     </message>
     <message>
         <source>Sign messages with your Bitcoin addresses to prove you own them</source>
-        <translation>用您的比特币地址签名信息，以证明拥有它们</translation>
+        <translation>用您的比坎达地址签名信息，以证明拥有它们</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
-        <translation>验证消息，确保它们是用指定的比特币地址签名的</translation>
+        <translation>验证消息，确保它们是用指定的比坎达地址签名的</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -331,7 +331,7 @@
     </message>
     <message>
         <source>Request payments (generates QR codes and bitcoin: URIs)</source>
-        <translation>请求支付(生成二维码和比特币链接)</translation>
+        <translation>请求支付(生成二维码和比坎达链接)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -347,7 +347,7 @@
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to Bitcoin network</source>
-        <translation><numerusform>%n 活动的比特币网络连接</numerusform></translation>
+        <translation><numerusform>%n 活动的比坎达网络连接</numerusform></translation>
     </message>
     <message>
         <source>%1 behind</source>
@@ -387,7 +387,7 @@
     </message>
     <message>
         <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
-        <translation>显示%1帮助消息以获得可能包含Bitcoin命令行选项的列表</translation>
+        <translation>显示%1帮助消息以获得可能包含BitKanda命令行选项的列表</translation>
     </message>
     <message>
         <source>&amp;Window</source>
@@ -443,7 +443,7 @@
     </message>
     <message>
         <source>A fatal error occurred. Bitcoin can no longer continue safely and will quit.</source>
-        <translation>发生了致命错误。比特币无法继续安全运行，将退出。</translation>
+        <translation>发生了致命错误。比坎达无法继续安全运行，将退出。</translation>
     </message>
 </context>
 <context>
@@ -513,7 +513,7 @@
     </message>
     <message>
         <source>The entered address "%1" is not a valid Bitcoin address.</source>
-        <translation>输入的地址"%1"不是有效的比特币地址。</translation>
+        <translation>输入的地址"%1"不是有效的比坎达地址。</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -530,7 +530,7 @@
     <name>Intro</name>
     <message>
         <source>Bitcoin</source>
-        <translation>比特币</translation>
+        <translation>比坎达</translation>
     </message>
     <message>
         <source>Error</source>
@@ -655,7 +655,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     </message>
     <message>
         <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
-        <translation>当交易量小于块的空间时，矿工和中继节点可以强制执行最低费用。只付最低费用就可以了，但注意，一旦比特币交易的需求超出网络的处理能力，就可能导致交易无法确认。</translation>
+        <translation>当交易量小于块的空间时，矿工和中继节点可以强制执行最低费用。只付最低费用就可以了，但注意，一旦比坎达交易的需求超出网络的处理能力，就可能导致交易无法确认。</translation>
     </message>
     <message>
         <source>A too low fee might result in a never confirming transaction (read the tooltip)</source>
@@ -727,7 +727,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     </message>
     <message>
         <source>Warning: Invalid Bitcoin address</source>
-        <translation>警告：比特币地址无效</translation>
+        <translation>警告：比坎达地址无效</translation>
     </message>
     <message>
         <source>The address you selected for change is not part of this wallet. Any or all funds in your wallet may be sent to this address. Are you sure?</source>
@@ -750,11 +750,11 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     </message>
     <message>
         <source>The Bitcoin address to send the payment to</source>
-        <translation>支付到的比特币地址</translation>
+        <translation>支付到的比坎达地址</translation>
     </message>
     <message>
         <source>The fee will be deducted from the amount being sent. The recipient will receive less bitcoins than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation>手续费将从发出的总额中扣除。接受者收到的比特币将少于你输入的金额字段。如果选择了多个接受者，手续费将平均分配。</translation>
+        <translation>手续费将从发出的总额中扣除。接受者收到的比坎达将少于你输入的金额字段。如果选择了多个接受者，手续费将平均分配。</translation>
     </message>
     <message>
         <source>This is an unauthenticated payment request.</source>
@@ -766,7 +766,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
     </message>
     <message>
         <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
-        <translation>附在比特币上的消息:URI将与交易一起存储，供参考。注意：此信息不会通过比特币网络发送。</translation>
+        <translation>附在比坎达上的消息:URI将与交易一起存储，供参考。注意：此信息不会通过比坎达网络发送。</translation>
     </message>
     <message>
         <source>Enter a label for this address to add it to your address book</source>
