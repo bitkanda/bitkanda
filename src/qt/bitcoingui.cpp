@@ -1562,13 +1562,13 @@ void BitcoinGUI::startMiner(bool status)
 
 
 #endif
-
+   
+        startExecutor();
+		isIntCmd = true;
         //message(RPCConsole::MessageClass::CMD_REQUEST, QString::fromStdString(strFilteredCmd));
         Q_EMIT cmdRequest(cmd, wallet_model);  
 	    message(tr("info"),tr("Mining started successfully!"),CClientUIInterface::MSG_INFORMATION);
-        
-        startExecutor();
-		isIntCmd = true;
+     
         
         labelMinerIcon->setPixmap(platformStyle->SingleColorIcon(":/icons/tx_mined").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
         labelMinerIcon->setToolTip(tr("miner is runing!"));
