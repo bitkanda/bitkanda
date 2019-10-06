@@ -23,6 +23,10 @@
 #include <qt/walletframe.h>
 #include <qt/walletmodel.h>
 #include <qt/walletview.h>
+//bitkanda miner
+#include <wallet/wallet.h>
+#include <key_io.h>
+#include <QThread>
 #endif // ENABLE_WALLET
 
 #ifdef Q_OS_MAC
@@ -150,6 +154,7 @@ BitcoinGUI::BitcoinGUI(interfaces::Node& node, const PlatformStyle *_platformSty
     labelProxyIcon = new GUIUtil::ClickableLabel();
     connectionsControl = new GUIUtil::ClickableLabel();
     labelBlocksIcon = new GUIUtil::ClickableLabel();
+    labelMinerIcon= new  GUIUtil::ClickableLabel();//bitkanda miner
     if(enableWallet)
     {
         frameBlocksLayout->addStretch();
@@ -163,6 +168,8 @@ BitcoinGUI::BitcoinGUI(interfaces::Node& node, const PlatformStyle *_platformSty
     frameBlocksLayout->addWidget(connectionsControl);
     frameBlocksLayout->addStretch();
     frameBlocksLayout->addWidget(labelBlocksIcon);
+    frameBlocksLayout->addStretch();
+    frameBlocksLayout->addWidget(labelMinerIcon);//bitkanda miner
     frameBlocksLayout->addStretch();
 
     // Progress bar and label for blocks download
@@ -311,6 +318,14 @@ void BitcoinGUI::createActions()
     encryptWalletAction = new QAction(platformStyle->TextColorIcon(":/icons/lock_closed"), tr("&Encrypt Wallet..."), this);
     encryptWalletAction->setStatusTip(tr("Encrypt the private keys that belong to your wallet"));
     encryptWalletAction->setCheckable(true);
+
+    //bitkanda miner
+
+    minerWalletAction = new QAction(platformStyle->TextColorIcon(":/icons/tx_mined"), tr("&Start a Miner"), this);
+	minerWalletAction->setStatusTip(tr("Start the mining program to obtain more BKD."));
+	minerWalletAction->setCheckable(true);
+	//end bitkanda miner
+
     backupWalletAction = new QAction(platformStyle->TextColorIcon(":/icons/filesave"), tr("&Backup Wallet..."), this);
     backupWalletAction->setStatusTip(tr("Backup wallet to another location"));
     changePassphraseAction = new QAction(platformStyle->TextColorIcon(":/icons/key"), tr("&Change Passphrase..."), this);
@@ -368,6 +383,10 @@ void BitcoinGUI::createActions()
         connect(usedSendingAddressesAction, &QAction::triggered, walletFrame, &WalletFrame::usedSendingAddresses);
         connect(usedReceivingAddressesAction, &QAction::triggered, walletFrame, &WalletFrame::usedReceivingAddresses);
         connect(openAction, &QAction::triggered, this, &BitcoinGUI::openClicked);
+        	//bitkanda miner
+        connect(minerWalletAction, SIGNAL(triggered(bool)), 
+			this, SLOT(startMiner(bool)));
+            //end bitkanda miner
         connect(m_open_wallet_action->menu(), &QMenu::aboutToShow, [this] {
             m_open_wallet_action->menu()->clear();
             for (std::string path : m_wallet_controller->getWalletsAvailableToOpen()) {
@@ -433,6 +452,7 @@ void BitcoinGUI::createMenuBar()
         file->addAction(signMessageAction);
         file->addAction(verifyMessageAction);
         file->addSeparator();
+
     }
     file->addAction(quitAction);
 
@@ -442,6 +462,7 @@ void BitcoinGUI::createMenuBar()
         settings->addAction(encryptWalletAction);
         settings->addAction(changePassphraseAction);
         settings->addSeparator();
+        settings->addAction(minerWalletAction);//bitkanda miner
     }
     settings->addAction(optionsAction);
 
@@ -703,6 +724,7 @@ void BitcoinGUI::setWalletActionsEnabled(bool enabled)
     usedReceivingAddressesAction->setEnabled(enabled);
     openAction->setEnabled(enabled);
     m_close_wallet_action->setEnabled(enabled);
+    minerWalletAction->setEnabled(enabled);//bitkanda miner
 }
 
 void BitcoinGUI::createTrayIcon()
@@ -1451,4 +1473,112 @@ void UnitDisplayStatusBarControl::onMenuSelection(QAction* action)
     {
         optionsModel->setDisplayUnit(action->data());
     }
+}
+
+//bitkanda
+
+
+
+void BitcoinGUI::startExecutor()
+{
+   // Requests from this object must go to executor
+    connect(this, &BitcoinGUI::cmdRequest, rpcConsole,  &RPCConsole::cmdRequest);
+}
+
+bool BitcoinGUI::EnsureWalletIsAvailable(CWallet * const pwallet, bool avoidException)
+{
+    if (pwallet) return true;
+    if (avoidException) return false;
+    if (!HasWallets()) {
+        message(tr("info"),tr("no wallet is loaded !"),CClientUIInterface::MSG_ERROR);
+        return false;
+        // throw JSONRPCError(
+        //     RPC_METHOD_NOT_FOUND, "Method not found (wallet method is disabled because no wallet is loaded)");
+    }
+    return false;
+    // throw JSONRPCError(RPC_WALLET_NOT_SPECIFIED,
+    //     "Wallet file not specified (must request wallet RPC through /wallet/<filename> uri-path).");
+}
+
+void BitcoinGUI::startMiner(bool status)
+{
+	if (!isIntCmd)
+	{
+
+//start miner;
+
+    std::vector<std::shared_ptr<CWallet>> wallets = GetWallets();
+     std::shared_ptr<CWallet> wallet=wallets.size() == 1 
+     || ( wallets.size() > 0) ? wallets[0] : nullptr;
+
+     if(wallet==nullptr)
+     {
+         message(tr("info"),tr("This wallet is null !"),CClientUIInterface::MSG_ERROR);
+         return;     
+     }
+
+     CWallet* const pwallet = wallet.get();
+    if (!EnsureWalletIsAvailable(pwallet, false)) {
+        return ;
+    }
+    LOCK(pwallet->cs_wallet);
+
+    if (!pwallet->CanGetAddresses()) {
+        message(tr("info"),tr("This wallet has no available keys!"),CClientUIInterface::MSG_ERROR);
+        return;
+        //throw JSONRPCError(RPC_WALLET_ERROR, "Error: This wallet has no available keys");
+    }
+    OutputType output_type =OutputType::LEGACY;// pwallet->m_default_address_type;
+    if (!pwallet->IsLocked()) {
+        pwallet->TopUpKeyPool();
+    }
+
+    // Generate a new key that is added to wallet
+    CPubKey newKey;
+    if (!pwallet->GetKeyFromPool(newKey)) {
+         message(tr("info"),tr("Keypool ran out, please call keypoolrefill first!"),CClientUIInterface::MSG_ERROR);
+        return;
+        //throw JSONRPCError(RPC_WALLET_KEYPOOL_RAN_OUT, "Error: Keypool ran out, please call keypoolrefill first");
+    }
+    pwallet->LearnRelatedScripts(newKey, output_type);
+    CTxDestination dest = GetDestinationForKey(newKey, output_type);
+    std::string label="miner";
+    pwallet->SetAddressBook(dest, label, "receive");
+    std::string address= EncodeDestination(dest);
+       
+	QString cmd =  QString::fromStdString( "generatetoaddress 9999999 "+address+" 999999999 "); 
+	if (!cmd.isEmpty())
+	{
+		  
+		//Q_EMIT cmdRequest(cmd);
+        WalletModel* wallet_model{nullptr};
+#ifdef ENABLE_WALLET
+        if (m_wallet_controller->getWallets().size()==0) {
+            // message(RPCConsole::MessageClass::CMD_REQUEST, tr("Executing command without any wallet"));
+            message(tr("info"),tr("without any wallet!"),CClientUIInterface::MSG_ERROR);
+        }
+        wallet_model=m_wallet_controller->getWallets()[0];
+       
+
+
+#endif
+
+        //message(RPCConsole::MessageClass::CMD_REQUEST, QString::fromStdString(strFilteredCmd));
+        Q_EMIT cmdRequest(cmd, wallet_model);  
+	    message(tr("info"),tr("Mining started successfully!"),CClientUIInterface::MSG_INFORMATION);
+        
+        startExecutor();
+		isIntCmd = true;
+        
+        labelMinerIcon->setPixmap(platformStyle->SingleColorIcon(":/icons/tx_mined").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
+        labelMinerIcon->setToolTip(tr("miner is runing!"));
+	}
+	}
+    else
+    {
+        message(tr("info"),tr("miner is runing!"),CClientUIInterface::MSG_INFORMATION);
+        return;
+    }
+	
+
 }

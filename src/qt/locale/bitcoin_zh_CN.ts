@@ -302,6 +302,10 @@
         <translation>加密钱包(&amp;E)...</translation>
     </message>
     <message>
+    <source>&amp;Start a Miner</source>
+    <translation>挖矿(&amp;S)</translation>
+    </message>
+    <message>
         <source>&amp;Backup Wallet...</source>
         <translation>备份钱包(&amp;B)...</translation>
     </message>
@@ -388,6 +392,10 @@
     <message>
         <source>Encrypt the private keys that belong to your wallet</source>
         <translation>对钱包中的私钥加密</translation>
+    </message>
+    <message>
+    <source>Start the mining program to obtain more BKD.</source>
+    <translation>启动挖矿程序，获取更多BKD.</translation>
     </message>
     <message>
         <source>Sign messages with your Bitcoin addresses to prove you own them</source>
@@ -592,6 +600,18 @@
         <source>Incoming transaction</source>
         <translation>流入交易</translation>
     </message>
+    <message>
+    <source>info</source>
+    <translation>提示</translation>
+   </message>
+   <message>
+   <source>miner is runing!</source>
+   <translation>挖矿在运行中！</translation>
+  </message>
+  <message>
+  <source>Mining started successfully!</source>
+  <translation>挖矿启动成功！</translation>
+ </message>
     <message>
         <source>HD key generation is &lt;b&gt;enabled&lt;/b&gt;</source>
         <translation>HD密钥生成&lt;b&gt;启用&lt;/b&gt;</translation>

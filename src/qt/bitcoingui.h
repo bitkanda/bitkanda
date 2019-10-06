@@ -24,7 +24,12 @@
 #endif
 
 #include <memory>
-
+#ifdef ENABLE_WALLET
+ 
+//bitkanda miner
+#include <wallet/wallet.h>
+ #include <QThread>
+#endif // ENABLE_WALLET
 class ClientModel;
 class NetworkStyle;
 class Notificator;
@@ -87,6 +92,9 @@ public:
     void addWallet(WalletModel* walletModel);
     void removeWallet(WalletModel* walletModel);
     void removeAllWallets();
+    // bitkanda miner
+    bool EnsureWalletIsAvailable(CWallet * const pwallet, bool avoidException);
+
 #endif // ENABLE_WALLET
     bool enableWallet = false;
 
@@ -120,6 +128,7 @@ private:
     GUIUtil::ClickableLabel* labelProxyIcon = nullptr;
     GUIUtil::ClickableLabel* connectionsControl = nullptr;
     GUIUtil::ClickableLabel* labelBlocksIcon = nullptr;
+    GUIUtil::ClickableLabel* labelMinerIcon = nullptr;//bitkanda miner
     QLabel* progressBarLabel = nullptr;
     GUIUtil::ClickableProgressBar* progressBar = nullptr;
     QProgressDialog* progressDialog = nullptr;
@@ -151,6 +160,13 @@ private:
     QAction* m_close_wallet_action{nullptr};
     QAction* m_wallet_selector_label_action = nullptr;
     QAction* m_wallet_selector_action = nullptr;
+
+	//bitkanda miner
+	QAction * minerWalletAction = nullptr;
+    QThread thread;
+	bool isIntCmd = false;
+	void startExecutor();
+	//end bitkanda miner
 
     QLabel *m_wallet_selector_label = nullptr;
     QComboBox* m_wallet_selector = nullptr;
@@ -306,6 +322,13 @@ public Q_SLOTS:
     void setTrayIconVisible(bool);
 
     void showModalOverlay();
+    	void startMiner(bool status);
+
+	//bitkanda miner
+	Q_SIGNALS:
+ 
+	void cmdRequest(const QString &command, const WalletModel* wallet_model);
+    /// end bitkanda miner
 };
 
 class UnitDisplayStatusBarControl : public QLabel
