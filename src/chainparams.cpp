@@ -177,6 +177,7 @@ public:
         vSeeds.emplace_back("dnsseed.emzy.de");               // Stephan Oeste
 #endif
         vSeeds.emplace_back("176.122.140.144");
+        vSeeds.emplace_back("seed.bitkanda.org");
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 0);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 5);
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 128);
