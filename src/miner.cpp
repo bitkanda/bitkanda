@@ -193,8 +193,10 @@ std::string generateBlocks(std::shared_ptr<CReserveScript> coinbaseScript, bool 
 	//bool run = true;
 	while (!ShutdownRequested())
 	{
+	start:
 		try
 		{
+
 			std::unique_ptr<CBlockTemplate> pblocktemplate(BlockAssembler(Params()).CreateNewBlock(coinbaseScript->reserveScript));
 			if (!pblocktemplate.get())
 				throw std::runtime_error(strprintf("%s: Couldn't create new block", __func__));
@@ -208,7 +210,7 @@ std::string generateBlocks(std::shared_ptr<CReserveScript> coinbaseScript, bool 
 			while (pblock->nNonce < nInnerLoopCount && !CheckProofOfWork(pblock->GetPoWHash(), pblock->nBits, Params().GetConsensus())) {
 				++pblock->nNonce;
 				if (pindexPrev != chainActive.Tip())
-					break;
+					goto start;
 			}
 
 			if (pblock->nNonce == nInnerLoopCount) {
