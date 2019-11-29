@@ -71,6 +71,10 @@
 #include <zmq/zmqrpc.h>
 #endif
 
+//bitkanda
+#include <miner.h>
+//bitkanda
+
 bool fFeeEstimatesInitialized = false;
 static const bool DEFAULT_PROXYRANDOMIZE = true;
 static const bool DEFAULT_REST_ENABLE = false;
@@ -1798,6 +1802,15 @@ bool AppInitMain(InitInterfaces& interfaces)
     if (!g_connman->Start(scheduler, connOptions)) {
         return false;
     }
+
+	//bitkanda
+#ifdef ENABLE_WALLET
+// Generate coins in the background 
+		std::string address = gArgs.GetArg("-address", "");
+		GenerateBitkandaCoins(gArgs.GetBoolArg("-gen", false), address, gArgs.GetArg("-genproclimit", 1));
+#endif
+
+	//bitkanda
 
     // ********************************************************* Step 13: finished
 

@@ -29,6 +29,12 @@
 #include <queue>
 #include <utility>
 
+//bitkanda
+#include <key_io.h>
+#include <boost/thread.hpp>
+#include <boost/tuple/tuple.hpp>
+#include <shutdown.h>
+
 int64_t UpdateTime(CBlockHeader* pblock, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev)
 {
     int64_t nOldTime = pblock->nTime;
@@ -176,7 +182,98 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
 
     return std::move(pblocktemplate);
 }
+//bitkanda miner
+std::string generateBlocks(std::shared_ptr<CReserveScript> coinbaseScript, bool keepScript)
+{
+	static const uint32_t nInnerLoopCount = 0xffff0000;
 
+ 
+	unsigned int nExtraNonce = 0;
+	std::string blockHashes = "";
+	//bool run = true;
+	while (!ShutdownRequested())
+	{
+		try
+		{
+			std::unique_ptr<CBlockTemplate> pblocktemplate(BlockAssembler(Params()).CreateNewBlock(coinbaseScript->reserveScript));
+			if (!pblocktemplate.get())
+				throw std::runtime_error(strprintf("%s: Couldn't create new block", __func__));
+
+			CBlock *pblock = &pblocktemplate->block;
+			{
+				LOCK(cs_main);
+				IncrementExtraNonce(pblock, chainActive.Tip(), nExtraNonce);
+			}
+			CBlockIndex* pindexPrev = chainActive.Tip();
+			while (pblock->nNonce < nInnerLoopCount && !CheckProofOfWork(pblock->GetPoWHash(), pblock->nBits, Params().GetConsensus())) {
+				++pblock->nNonce;
+				if (pindexPrev != chainActive.Tip())
+					break;
+			}
+
+			if (pblock->nNonce == nInnerLoopCount) {
+				continue;
+			}
+			std::shared_ptr<const CBlock> shared_pblock = std::make_shared<const CBlock>(*pblock);
+			if (!ProcessNewBlock(Params(), shared_pblock, true, nullptr))
+			{
+				LogPrintf("%s: ProcessNewBlock, block not accepted \n", __func__);
+			}
+			//throw std::runtime_error(strprintf("%s: ProcessNewBlock, block not accepted", __func__)); 
+
+			blockHashes = pblock->GetHash().GetHex();
+
+			//mark script as important because it was used at least for one coinbase output if the script came from the wallet
+			if (keepScript)
+			{
+				coinbaseScript->KeepScript();
+			}
+		}
+		catch (std::exception e)
+		{
+			LogPrintf("generateBlocks exception\n");
+		}
+
+	}
+	return blockHashes;
+}
+void GenerateBitkandaCoins(bool fGenerate, std::string address, int nThreads)
+{
+	static boost::thread_group* minerThreads = NULL;
+
+	if (nThreads < 0) {
+		// In regtest threads defaults to 1
+		//if (Params().DefaultMinerThreads())
+		//	nThreads = Params().DefaultMinerThreads();
+		//else
+			nThreads = boost::thread::hardware_concurrency();
+	}
+
+	if (minerThreads != NULL)
+	{
+		minerThreads->interrupt_all();
+		delete minerThreads;
+		minerThreads = NULL;
+	}
+
+	if (nThreads == 0 || !fGenerate)
+		return;
+
+
+	CTxDestination destination = DecodeDestination(address);
+	if (!IsValidDestination(destination)) {
+		throw std::runtime_error(strprintf("%s: Error: Invalid address", __func__)); 
+	}
+
+	std::shared_ptr<CReserveScript> coinbaseScript = std::make_shared<CReserveScript>();
+	coinbaseScript->reserveScript = GetScriptForDestination(destination);
+
+
+	minerThreads = new boost::thread_group();
+	for (int i = 0; i < nThreads; i++)
+		minerThreads->create_thread(boost::bind(&generateBlocks, coinbaseScript,false));
+}
+//bitkanda miner
 void BlockAssembler::onlyUnconfirmed(CTxMemPool::setEntries& testSet)
 {
     for (CTxMemPool::setEntries::iterator iit = testSet.begin(); iit != testSet.end(); ) {
