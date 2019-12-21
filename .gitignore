@@ -1,8 +1,8 @@
 *.tar.gz
 
 *.exe
-src/bitcoin
-src/bitcoind
+src/bitkanda
+src/bitkandad
 src/bitcoin-cli
 src/bitcoin-tx
 src/bitcoin-wallet

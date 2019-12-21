@@ -23,6 +23,7 @@
 #include <walletinitinterface.h>
 
 #include <stdio.h>
+#include <hash.h>
 
 const std::function<std::string(const char*)> G_TRANSLATION_FUN = nullptr;
 
@@ -85,7 +86,7 @@ static bool AppInit(int argc, char* argv[])
         }
         else
         {
-            strUsage += "\nUsage:  bitcoind [options]                     Start " PACKAGE_NAME " Daemon\n";
+            strUsage += "\nUsage:  bitkandad [options]                     Start " PACKAGE_NAME " Daemon\n";
             strUsage += "\n" + gArgs.GetHelpMessage();
         }
 
@@ -115,7 +116,7 @@ static bool AppInit(int argc, char* argv[])
         // Error out when loose non-argument tokens are encountered on command line
         for (int i = 1; i < argc; i++) {
             if (!IsSwitchChar(argv[i][0])) {
-                fprintf(stderr, "Error: Command line contains unexpected token '%s', see bitcoind -h for a list of options.\n", argv[i]);
+                fprintf(stderr, "Error: Command line contains unexpected token '%s', see bitkandad -h for a list of options.\n", argv[i]);
                 return false;
             }
         }
@@ -186,9 +187,43 @@ static bool AppInit(int argc, char* argv[])
 
     return fRet;
 }
+#define BEGIN(a)            ((char*)&(a))
+#define END(a)              ((char*)&((&(a))[1]))
+void PowerTest()
+{ 
+    char text[5]="5123";
+    char* s=BEGIN(text);
+    char* e=END(text);
+   int size = (e-s);
+    uint256 hash = Hash(BEGIN(text), END(text));
+ 
+   // uint256  h20161=uint256S("0xeca91159f021f3c5496374325f99687ccca23e1e730fb5f5b3c59c264cc20671");
+    //std::string h20161str= h20161.ToString();
 
+    uint256 hashMerkleRoot = uint256S("0x74d681e0e03bafa802c8aa084379aa98d9fcd632ddc2ed9782b586ec87451f20");
+
+    uint256 hashPrevBlock = uint256S("0x14d681e0e03bafa802c8aa084379aa98d9fcd632ddc2ed9782b586ec87451f20");
+
+
+    CBlockHeader header;
+    header.hashMerkleRoot=hashMerkleRoot;
+    header.hashPrevBlock=hashPrevBlock;
+    header.nBits=3;
+    header.nNonce=4;
+    header.nTime=5;
+    header.nVersion=6;
+    	uint256 thash;
+	scrypt_1024_1_1_256(BEGIN(header.nVersion), BEGIN(thash));
+    //uint256 hash=header.GetPoWHash();
+//"fd34c49da349d156137da3b940044b3521435301a3bf7456ac72aa8c5a7716be"
+    std::string hashstr= thash.ToString();
+            fprintf(stdout, "info hashcode:  \"%s\" .\n",hashstr.c_str());
+   
+ 
+}
 int main(int argc, char* argv[])
 {
+//PowerTest();
 #ifdef WIN32
     util::WinCmdLineArgs winArgs;
     std::tie(argc, argv) = winArgs.get();

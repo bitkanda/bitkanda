@@ -44,6 +44,7 @@
 #include <memory>
 #include <mutex>
 #include <condition_variable>
+#include<pow.h>
 
 struct CUpdatedBlock
 {
@@ -822,7 +823,27 @@ static CBlock GetBlockChecked(const CBlockIndex* pblockindex)
 
     return block;
 }
-
+//add test
+void test(    const CBlockIndex* pindexPrev,  const CBlockIndex* b)
+{
+        const Consensus::Params& consensusParams = Params().GetConsensus();
+    // Check proof of work
+CBlockHeader block;
+       block. nTime=b->nTime;
+    static unsigned int  nBits = GetNextWorkRequired(pindexPrev, &block, consensusParams) ;
+   unsigned int  n=nBits;
+      fprintf(stdout, "info nBits:  \"%d\" .\n",nBits);
+   if(nBits!=b->nBits)
+   {
+       n++;
+   }
+   else
+   {
+       n--;
+   }
+   
+     
+}
 static UniValue getblock(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() < 1 || request.params.size() > 2)
@@ -908,8 +929,12 @@ static UniValue getblock(const JSONRPCRequest& request)
         return strHex;
     }
 
+     
+    //test(pblockindex->pprev,pblockindex);
     return blockToJSON(block, chainActive.Tip(), pblockindex, verbosity >= 2);
 }
+
+
 
 struct CCoinsStats
 {
