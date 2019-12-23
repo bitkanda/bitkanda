@@ -2,8 +2,11 @@
 
 *.exe
 src/bitkanda
+src/bitcoin
 src/bitkandad
+src/bitcoind
 src/bitcoin-cli
+src/bitkanda-cli
 src/bitcoin-tx
 src/bitcoin-wallet
 src/test/test_bitcoin
