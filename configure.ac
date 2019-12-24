@@ -16,7 +16,7 @@ AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([build-aux/m4])
 
 BITCOIN_DAEMON_NAME=bitkandad
-BITCOIN_GUI_NAME=bitcoin-qt
+BITCOIN_GUI_NAME=bitkanda-qt
 BITCOIN_CLI_NAME=bitkanda-cli
 BITCOIN_TX_NAME=bitcoin-tx
 BITCOIN_WALLET_TOOL_NAME=bitcoin-wallet
