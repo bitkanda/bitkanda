@@ -6,7 +6,7 @@ etc.
 This directory contains the following sets of tests:
 
 - [functional](/test/functional) which test the functionality of
-bitcoind and bitcoin-qt by interacting with them through the RPC and P2P
+bitcoind and bitkanda-qt by interacting with them through the RPC and P2P
 interfaces.
 - [util](/test/util) which tests the bitcoin utilities, currently only
 bitcoin-tx.
