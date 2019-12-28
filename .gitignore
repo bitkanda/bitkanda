@@ -9,6 +9,7 @@ src/bitcoin-cli
 src/bitkanda-cli
 src/bitcoin-tx
 src/bitcoin-wallet
+src/bitkanda-wallet
 src/test/test_bitcoin
 src/test/test_bitcoin_fuzzy
 src/qt/test/test_bitcoin-qt

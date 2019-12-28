@@ -10,7 +10,7 @@ MANDIR=${MANDIR:-$TOPDIR/doc/man}
 BITCOIND=${BITCOIND:-$BINDIR/bitcoind}
 BITCOINCLI=${BITCOINCLI:-$BINDIR/bitcoin-cli}
 BITCOINTX=${BITCOINTX:-$BINDIR/bitcoin-tx}
-WALLET_TOOL=${WALLET_TOOL:-$BINDIR/bitcoin-wallet}
+WALLET_TOOL=${WALLET_TOOL:-$BINDIR/bitkanda-wallet}
 BITCOINQT=${BITCOINQT:-$BINDIR/qt/bitcoin-qt}
 
 [ ! -x $BITCOIND ] && echo "$BITCOIND not found or not executable." && exit 1
