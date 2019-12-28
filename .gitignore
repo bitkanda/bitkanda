@@ -11,6 +11,7 @@ src/bitcoin-tx
 src/bitcoin-wallet
 src/bitkanda-wallet
 src/test/test_bitcoin
+src/test/test_bitkanda
 src/test/test_bitcoin_fuzzy
 src/qt/test/test_bitcoin-qt
 
