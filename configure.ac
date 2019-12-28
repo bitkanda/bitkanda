@@ -18,7 +18,7 @@ AC_CONFIG_MACRO_DIR([build-aux/m4])
 BITCOIN_DAEMON_NAME=bitkandad
 BITCOIN_GUI_NAME=bitkanda-qt
 BITCOIN_CLI_NAME=bitkanda-cli
-BITCOIN_TX_NAME=bitcoin-tx
+BITCOIN_TX_NAME=bitkanda-tx
 BITCOIN_WALLET_TOOL_NAME=bitkanda-wallet
 
 dnl Unless the user specified ARFLAGS, force it to be cr
@@ -420,7 +420,7 @@ CPPFLAGS="$CPPFLAGS -DHAVE_BUILD_INFO -D__STDC_FORMAT_MACROS"
 
 AC_ARG_WITH([utils],
   [AS_HELP_STRING([--with-utils],
-  [build bitkanda-cli bitcoin-tx bitkanda-wallet (default=yes)])],
+  [build bitkanda-cli bitkanda-tx bitkanda-wallet (default=yes)])],
   [build_bitcoin_utils=$withval],
   [build_bitcoin_utils=yes])
 
@@ -432,7 +432,7 @@ AC_ARG_ENABLE([util-cli],
 
 AC_ARG_ENABLE([util-tx],
   [AS_HELP_STRING([--enable-util-tx],
-  [build bitcoin-tx])],
+  [build bitkanda-tx])],
   [build_bitcoin_tx=$enableval],
   [build_bitcoin_tx=$build_bitcoin_utils])
 
@@ -1251,7 +1251,7 @@ AC_MSG_CHECKING([whether to build bitkanda-cli])
 AM_CONDITIONAL([BUILD_BITCOIN_CLI], [test x$build_bitcoin_cli = xyes])
 AC_MSG_RESULT($build_bitcoin_cli)
 
-AC_MSG_CHECKING([whether to build bitcoin-tx])
+AC_MSG_CHECKING([whether to build bitkanda-tx])
 AM_CONDITIONAL([BUILD_BITCOIN_TX], [test x$build_bitcoin_tx = xyes])
 AC_MSG_RESULT($build_bitcoin_tx)
 
