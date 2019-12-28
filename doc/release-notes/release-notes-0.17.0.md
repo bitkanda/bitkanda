@@ -774,7 +774,7 @@ Support for Python 2 has been discontinued for all test files and tools.
 - #13779 `d25079a` travis: Improve readability of travis.yml and log outputs (scravy)
 - #13822 `0fb9c87` bench: Make coinselection output groups pass eligibility filter (achow101)
 - #13247 `e83d82a` Add tests to SingleThreadedSchedulerClient() and document the memory model (skeees)
-- #13811 `660abc1` travis: Run `bench_bitcoin` once (MarcoFalke)
+- #13811 `660abc1` travis: Run `bench_bitkanda` once (MarcoFalke)
 - #13837 `990e182` Extract `rpc_timewait` as test param (MarcoFalke)
 - #13851 `9c4324d` fix locale for lint-shell (scravy)
 - #13823 `489b51b` quote path in authproxy for external multiwallets (MarcoFalke)

@@ -281,7 +281,7 @@ git merge commit are mentioned.
 
 ### Build system
 - #8293 `fa5b249` Allow building libbitcoinconsensus without any univalue (luke-jr)
-- #8492 `8b0bdd3` Allow building bench_bitcoin by itself (luke-jr)
+- #8492 `8b0bdd3` Allow building bench_bitkanda by itself (luke-jr)
 - #8563 `147003c` Add configure check for -latomic (ajtowns)
 - #8626 `ea51b0f` Berkeley DB v6 compatibility fix (netsafe)
 - #8520 `75f2065` Remove check for `openssl/ec.h` (laanwj)
