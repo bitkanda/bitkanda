@@ -144,7 +144,7 @@ public:
 
         nDefaultPort = 8222;// 8333;
         nPruneAfterHeight = 100000;
-        m_assumed_blockchain_size = 240;
+        m_assumed_blockchain_size = 1;
         m_assumed_chain_state_size = 3;
 #ifdef MainNet
         genesis = CreateGenesisBlock(1231006505, 2083236893, 0x1d00ffff, 1, 50 * COIN);
