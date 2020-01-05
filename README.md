@@ -3,7 +3,7 @@ Bitkanda Core integration/staging tree
 
 [![Build Status](https://travis-ci.org/bitcoin/bitcoin.svg?branch=master)](https://travis-ci.org/bitcoin/bitcoin)
 
-https://bitcoincore.org
+http://bitkanda.org
 
 What is Bitkanda?
 ----------------
@@ -15,7 +15,7 @@ out collectively by the network. Bitkanda Core is the name of open source
 software which enables the use of this currency.
 
 For more information, as well as an immediately useable, binary version of
-the Bitkanda Core software, see https://bitcoincore.org/en/download/, or read the
+the Bitkanda Core software, see http://bitkanda.org/, or read the
 [original whitepaper](https://bitcoincore.org/bitcoin.pdf).
 
 License
@@ -28,7 +28,7 @@ Development Process
 -------------------
 
 The `master` branch is regularly built and tested, but is not guaranteed to be
-completely stable. [Tags](https://github.com/bitcoin/bitcoin/tags) are created
+completely stable. [Tags](https://github.com/bitkanda/bitkanda/tags) are created
 regularly to indicate new official, stable release versions of Bitkanda Core.
 
 The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md)
