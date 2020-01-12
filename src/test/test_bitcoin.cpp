@@ -20,7 +20,8 @@
 #include <streams.h>
 #include <ui_interface.h>
 #include <validation.h>
-
+#include <boost/test/included/unit_test.hpp>
+#include <boost/test/data/test_case.hpp>
 const std::function<std::string(const char*)> G_TRANSLATION_FUN = nullptr;
 
 FastRandomContext g_insecure_rand_ctx;
@@ -64,6 +65,9 @@ fs::path BasicTestingSetup::SetDataDir(const std::string& name)
 
 TestingSetup::TestingSetup(const std::string& chainName) : BasicTestingSetup(chainName)
 {
+	char** argv = boost::unit_test::framework::master_test_suite().argv;
+	std::string error;
+	gArgs.ParseParameters(boost::unit_test::framework::master_test_suite().argc, boost::unit_test::framework::master_test_suite().argv, error);
     SetDataDir("tempdir");
     const CChainParams& chainparams = Params();
         // Ideally we'd move all the RPC tests to the functional testing framework

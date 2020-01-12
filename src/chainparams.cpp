@@ -235,7 +235,7 @@ public:
     CTestNetParams()
     {
         strNetworkID = "test";
-        consensus.nSubsidyHalvingInterval = 210000;
+        consensus.nSubsidyHalvingInterval = 840000;
         consensus.BIP16Exception = uint256S("0x00000000dd30457c001f4095d208cc1296b0eed002427aa599874af7a432b105");
         consensus.BIP34Height = 21111;
         consensus.BIP34Hash = uint256S("0x0000000023b3a96d3484e5abb3755c413e7d41500f8e2a5c3f0dd01299cd8ef8");
@@ -244,13 +244,13 @@ public:
 #ifdef MainNet
         consensus.powLimit = uint256S("00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
 #else
-        consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
 #endif
-        consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
+        consensus.nPowTargetTimespan = 3.5 * 24 * 60 * 60; // two weeks
 #ifdef MainNet
         consensus.nPowTargetSpacing = 10 * 60;
 #else
-        consensus.nPowTargetSpacing = 3 * 60;
+        consensus.nPowTargetSpacing = 2.5 * 60;
 #endif
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
@@ -271,8 +271,8 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1493596800;   // May 1st 2017
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000007dbe94253893cbd463");
-
+        //consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000007dbe94253893cbd463");
+		consensus.nMinimumChainWork = uint256S("0x00");
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x0000000000000037a8cd3e06cd5edbfe9dd1dbcc5dacab279376ef7cfc2b4c75"); //1354312
 
@@ -290,7 +290,7 @@ public:
         genesis = CreateGenesisBlock(1296688602, 414098458, 0x1d00ffff, 1, 50 * COIN);
 
 #else
-        genesis = CreateGenesisBlock(1567341400, 18607, 520159231, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1567346400, 353159, 504365055, 1, 50 * COIN);
 
 #endif
         consensus.hashGenesisBlock = genesis.GetHash();
@@ -299,8 +299,8 @@ public:
         assert(consensus.hashGenesisBlock == uint256S("0x000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"));
         assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
 #else
-        //assert(genesis.hashMerkleRoot == uint256S("1a0a7daace4e3c1b881d609846ea4cb0a815b3a92bfef6fa24d8c52622bae351"));
-        //assert(consensus.hashGenesisBlock == uint256S("0000c6187d0940363be1bc1018e6a513cac50c8973df5e84e36fe5903c3c27af"));
+        assert(genesis.hashMerkleRoot == uint256S("5f7668b14da3376f1ed37cb72753dc7efada285af40b24c9568458036d2d2914"));
+        assert(consensus.hashGenesisBlock == uint256S("8857832385ef425a7789bff259e8d7568a0bcc6a089be2732628808b0d85d929"));
 
 #endif
         vFixedSeeds.clear();
@@ -361,11 +361,11 @@ public:
         consensus.BIP65Height = 1351; // BIP65 activated on regtest (Used in functional tests)
         consensus.BIP66Height = 1251; // BIP66 activated on regtest (Used in functional tests)
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
+        consensus.nPowTargetTimespan = 3.5 * 24 * 60 * 60; // two weeks
 #ifdef MainNet
         consensus.nPowTargetSpacing = 10 * 60;
 #else
-        consensus.nPowTargetSpacing = 3 * 60;
+        consensus.nPowTargetSpacing = 2.5 * 60;
 #endif
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = true;
@@ -400,15 +400,16 @@ public:
 #ifdef MainNet
         genesis = CreateGenesisBlock(1296688602, 2, 0x207fffff, 1, 50 * COIN);
 #else
-        genesis = CreateGenesisBlock(1567341400, 18607, 520159231, 1, 50 * COIN);
+		//uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward
+        genesis = CreateGenesisBlock(1567346400, 0, 545259519, 1, 50 * COIN);
 #endif
         consensus.hashGenesisBlock = genesis.GetHash();
 #ifdef MainNet
         assert(consensus.hashGenesisBlock == uint256S("0x0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206"));
         assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
 #else
-        //assert(genesis.hashMerkleRoot == uint256S("1a0a7daace4e3c1b881d609846ea4cb0a815b3a92bfef6fa24d8c52622bae351"));
-        //assert(consensus.hashGenesisBlock == uint256S("0000c6187d0940363be1bc1018e6a513cac50c8973df5e84e36fe5903c3c27af"));
+        assert(genesis.hashMerkleRoot == uint256S("5f7668b14da3376f1ed37cb72753dc7efada285af40b24c9568458036d2d2914"));
+        assert(consensus.hashGenesisBlock == uint256S("59a0a6d4ad0ad611ee2255dd80878aa279f8479f5e90cb71f1c41ed10def7802"));
 
 #endif
         vFixedSeeds.clear(); //!< Regtest mode doesn't have any fixed seeds.
