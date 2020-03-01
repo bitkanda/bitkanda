@@ -199,6 +199,21 @@ WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransact
         return AmountExceedsBalance;
     }
 
+    if(!coinControl.returndata.empty())
+    {
+    //add return data. 
+    std::vector<unsigned char> outnews(coinControl.returndata.begin(), coinControl.returndata.end());
+    CScript scriptreturn   = CScript() << OP_RETURN << outnews;
+    bool fAcceptDatacarrier=DEFAULT_ACCEPT_DATACARRIER;
+    if(!fAcceptDatacarrier || scriptreturn.size() > nMaxDatacarrierBytes) {
+           return ReturnDataFailed;
+    }
+   
+    CRecipient returndata = {scriptreturn, 0, false};
+    vecSend.push_back(returndata);
+
+    }
+    
     {
         CAmount nFeeRequired = 0;
         int nChangePosRet = -1;
