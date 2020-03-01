@@ -125,6 +125,9 @@ SendCoinsDialog::SendCoinsDialog(const PlatformStyle *_platformStyle, QWidget *p
     ui->customFee->SetAllowEmpty(false);
     ui->customFee->setValue(settings.value("nTransactionFee").toLongLong());
     minimizeFeeSection(settings.value("fFeeSectionMinimized").toBool());
+
+    //
+    ui->teReturn->setPlaceholderText(tr("The input message will be written to the blockchain for all to see"));
 }
 
 void SendCoinsDialog::setClientModel(ClientModel *_clientModel)
