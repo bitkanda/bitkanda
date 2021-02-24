@@ -2075,6 +2075,10 @@
 <context>
     <name>SendCoinsDialog</name>
     <message>
+    <source>Return data is limited to no greater than length: %1.</source>
+    <translation>返回碼長度限制不能大於: %1個字母.</translation>
+</message>
+    <message>
         <source>Send Coins</source>
         <translation>付款</translation>
     </message>
@@ -2130,6 +2134,10 @@
         <source>Transaction Fee:</source>
         <translation>交易手續費:</translation>
     </message>
+    <message>
+    <source>Return Data:</source>
+    <translation>返回碼:</translation>
+    </message>  
     <message>
         <source>Choose...</source>
         <translation>選項...</translation>
@@ -2358,6 +2366,10 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <translation>金額(&amp;M):</translation>
     </message>
     <message>
+        <source>The input message will be written to the blockchain for all to see</source>
+        <translation>輸入消息將會寫入區塊鏈,所有人都能看到。</translation>
+    </message>
+    <message>
         <source>Pay &amp;To:</source>
         <translation>付給(&amp;T):</translation>
     </message>
@@ -2437,6 +2449,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee of "100 satoshis p
         <source>Enter a label for this address to add it to your address book</source>
         <translation>請輸入這個位址的標記來把它加進位址簿中</translation>
     </message>
+
 </context>
 <context>
     <name>SendConfirmationDialog</name>

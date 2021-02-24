@@ -615,6 +615,10 @@
         <translation>余额不足</translation>
     </message>
     <message>
+        <source>The input message will be written to the blockchain for all to see</source>
+        <translation>输入消息将会写入区块链,所有人都能看到。</translation>
+    </message>
+    <message>
         <source>Quantity:</source>
         <translation>数量：</translation>
     </message>

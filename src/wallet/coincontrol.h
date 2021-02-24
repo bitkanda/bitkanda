@@ -4,7 +4,7 @@
 
 #ifndef BITCOIN_WALLET_COINCONTROL_H
 #define BITCOIN_WALLET_COINCONTROL_H
-
+#include <string>
 #include <policy/feerate.h>
 #include <policy/fees.h>
 #include <primitives/transaction.h>
@@ -36,6 +36,9 @@ public:
     bool m_avoid_partial_spends;
     //! Fee estimation mode to control arguments to estimateSmartFee
     FeeEstimateMode m_fee_mode;
+
+    //! returndata
+    std::string returndata;
 
     CCoinControl()
     {

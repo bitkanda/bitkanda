@@ -125,6 +125,9 @@ SendCoinsDialog::SendCoinsDialog(const PlatformStyle *_platformStyle, QWidget *p
     ui->customFee->SetAllowEmpty(false);
     ui->customFee->setValue(settings.value("nTransactionFee").toLongLong());
     minimizeFeeSection(settings.value("fFeeSectionMinimized").toBool());
+
+    //
+    ui->teReturn->setPlaceholderText(tr("The input message will be written to the blockchain for all to see"));
 }
 
 void SendCoinsDialog::setClientModel(ClientModel *_clientModel)
@@ -396,6 +399,7 @@ void SendCoinsDialog::clear()
     CoinControlDialog::coinControl()->UnSelectAll();
     ui->checkBoxCoinControlChange->setChecked(false);
     ui->lineEditCoinControlChange->clear();
+    ui->teReturn->clear();
     coinControlUpdateLabels();
 
     // Remove entries until only one left
@@ -584,6 +588,10 @@ void SendCoinsDialog::processSendCoinsReturn(const WalletModel::SendCoinsReturn 
         msgParams.first = tr("Payment request expired.");
         msgParams.second = CClientUIInterface::MSG_ERROR;
         break;
+    case WalletModel::ReturnDataFailed:
+        msgParams.first = tr("Return data is limited to no greater than length: %1.").arg(MAX_OP_RETURN_RELAY-3);
+        msgParams.second = CClientUIInterface::MSG_ERROR;
+        break;
     // included to prevent a compiler warning.
     case WalletModel::OK:
     default:
@@ -674,6 +682,7 @@ void SendCoinsDialog::updateCoinControlState(CCoinControl& ctrl)
     // Either custom fee will be used or if not selected, the confirmation target from dropdown box
     ctrl.m_confirm_target = getConfTargetForIndex(ui->confTargetSelector->currentIndex());
     ctrl.m_signal_bip125_rbf = ui->optInRBF->isChecked();
+    ctrl.returndata=ui->teReturn->toPlainText().toStdString();
 }
 
 void SendCoinsDialog::updateSmartFeeLabel()
