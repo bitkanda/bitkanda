@@ -3094,19 +3094,19 @@ bool CWallet::CreateTransaction(interfaces::Chain::Lock& locked_chain, const std
         for (const auto& coin : selected_coins) {
             txNew.vin.push_back(CTxIn(coin.outpoint, CScript(), nSequence));
         }
-		std::string code = "";
-		if (!code.empty())
-		{
-			code = "Markets fear more turmoil this week after news yesterday that China’s economy, hit by the coronavirus, suffered a record slump last month.It will add to fears about the impact of the virus on the global economy, with experts fearing that it could wipe more than $1 trillion (£760bn) off global GDP — reducing world economic growth close to the 2% rate that is normally associated with recession.";
-			//bitkanda add return code.
-			const unsigned char* codeptr = (const unsigned char*)code.c_str();
-			CScript codescript;
-			codescript << OP_RETURN;
-			codescript << std::vector<unsigned char>(codeptr, codeptr + strlen(code.c_str()));
-			CAmount amount(0);
-			CTxOut codeTxOut(amount, codescript);
-			txNew.vout.push_back(codeTxOut);
-		}
+		//std::string code = "";
+		//if (!code.empty())
+		//{
+		//	code = "bitkanda add return code.";
+		//	//bitkanda add return code.
+		//	const unsigned char* codeptr = (const unsigned char*)code.c_str();
+		//	CScript codescript;
+		//	codescript << OP_RETURN;
+		//	codescript << std::vector<unsigned char>(codeptr, codeptr + strlen(code.c_str()));
+		//	CAmount amount(0);
+		//	CTxOut codeTxOut(amount, codescript);
+		//	txNew.vout.push_back(codeTxOut);
+		//}
         if (sign)
         {
             int nIn = 0;
